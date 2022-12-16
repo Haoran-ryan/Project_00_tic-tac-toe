@@ -2,3 +2,7 @@
 
 ## Logs
 <u>**16-Dec-2022**</u>
+
+## Development Ideas 
+
+## Bugs 
