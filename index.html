@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Tic Tac Toe</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="cell" data-cell="0">0</div>
+        <div class="cell" data-cell="1">1</div>
+        <div class="cell" data-cell="2">2</div>
+        <div class="cell" data-cell="3">3</div>
+        <div class="cell" data-cell="4">4</div>
+        <div class="cell" data-cell="5">5</div>
+        <div class="cell" data-cell="6">6</div>
+        <div class="cell" data-cell="7">7</div>
+        <div class="cell" data-cell="8">8</div>
+    </div>
+
+    <div class="winner" id="winner">
+        <div id="winning-message"></div>
+        <button id="restart">Restart</button>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
