@@ -2,24 +2,21 @@
 const playerX = 'X';
 const playerO = 'O';
 //winning combination
-// const winningCombo =[
-//     [0,1,2],
-//     [3,4,5],
-//     [6,7,8],
-//     [0,3,6],
-//     [1,4,7],
-//     [2,5,8],
-//     [0,4,8],
-//     [2,4,6],
-// ];
-
-[1,4,5,7]
-
 const winningCombo =[
-    "012","345","678",
-    "036","147","258",
-    "048","246"
-]
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+];
+
+// record the positions taken by each player
+// the variables have to be global !
+let player = [-100,-101,-102,-103,-104,-105,-106,-107,-108];
+
 
 const cells = document.querySelectorAll('[data-cell]');
 const board = document.querySelector('.container');
@@ -28,27 +25,27 @@ const winText = document.querySelector('#winning-message');
 const restartButton = document.querySelector('#restart');
 let playerO_turn = false;
 
-// record the positions taken by each player
-// the variables have to be global !
-let spotsX = [];
-let spotsO = [];
-
-// function to process the 'indices' of the clicked cells
-const sorting = function(arr){
-    let result = arr.sort();
-    return result.join("");
-}
 
 // function to check the winning
-const checkForWinner = function(arr){
-    let len = arr.length;
-    if (len < 3){
-        return
-    }else{
-        let stringToCompare = sorting(arr);
-        // console.log("string to compare: "+stringToCompare);
-        winningCombo.forEach(element => {stringToCompare.includes(element)? console.log("You Win"): false})
+//player is a global variable!
+
+const winningRule = function(a,b,c,player){
+    let spot1 = player[a];
+    let spot2 = player[b];
+    let spot3 = player[c];
+    if (spot1 === spot2 && spot1 === spot3 && spot2 == spot3){
+        if (spot1 === 1){
+            console.log("Player X wins!")
+        }else{
+            console.log("Player O wins!")
         }
+    }
+}
+const checkForWinner = function(){
+    for(let i in winningCombo){
+        let [a,b,c] = winningCombo[i]
+        winningRule(a,b,c,player);
+    }
 }
 
 // function to restart the game
@@ -71,18 +68,18 @@ board.addEventListener("click",function(event){
             clickedCell.innerText = 'X';
             clickedCell.dataset.taken = "true";
             playerO_turn = true;
-            let clickedCellValue = clickedCell.dataset.cell;
-            spotsX.push(clickedCellValue);
+            let clickedCellValue = parseInt(clickedCell.dataset.cell);
+            player[clickedCellValue] = 1;
 
-            checkForWinner(spotsX);
+            checkForWinner();
         } else {
             clickedCell.innerText = 'O';
             clickedCell.dataset.taken = "true";
             playerO_turn = false;
-            let clickedCellValue = clickedCell.dataset.cell;
-            spotsO.push(clickedCellValue);
+            let clickedCellValue = parseInt(clickedCell.dataset.cell);
+            player[clickedCellValue] = 2;
 
-            checkForWinner(spotsO);
+            checkForWinner();
         }
     }
 })
