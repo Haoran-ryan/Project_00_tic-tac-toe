@@ -13,7 +13,8 @@
 
 ## Bugs 
 <u>**19-Dec-2022**</u>
-1. restart button not working 
+1. restart button not working
+2. some rules are not working because of the way array was pushed and compared 
 ---
 ### Copyright (c)
 Author: Haoran (Ryan) Guo 
