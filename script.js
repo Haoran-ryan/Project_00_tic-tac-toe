@@ -48,12 +48,9 @@ const gameEnd = function(){
 
 // function to restart the game
 const restartGame = function(){
-    // for (let i=0; i<9; i++){
-    //     cells[i].dataset.taken = "false";
-    //     cells[i].innerText ="";
-    // }
     Array.from(cells).forEach(item => item.dataset.taken = "false");
     Array.from(cells).forEach(item => item.innerText = "");
+    strike.className = "strike";
     playerO_turn = false;
     playerStatus.innerText = "Current Player is X";
     winningMessage.innerText = "Who Wins?"
@@ -69,13 +66,13 @@ const winningRule = function(a,b,c,player){
     let spot2 = player[b];
     let spot3 = player[c];
     if (spot1 && (spot1 === spot2 && spot1 === spot3)){
-    // if (spot1 === spot2 && spot1 === spot3 && spot2 == spot3){
         if (spot1 === 1){
             winningMessage.innerText = "Player X Wins!";
             winningMessage.style.color = "black";
             winningMessage.style.opacity = "1";
             console.log("Player X wins!")
             winner = true;
+            winnerSound.loop = false;
             winnerSound.play();
 
         }else{
@@ -84,7 +81,6 @@ const winningRule = function(a,b,c,player){
             winningMessage.style.opacity = "1";
             console.log("Player O wins!")
             winner = true;
-            // setInterval(restartGame,250)
             winnerSound.play();
         }
     } else if(Array.from(cells).every((element) => element.dataset.taken !== 'false')){
@@ -92,7 +88,6 @@ const winningRule = function(a,b,c,player){
         playerStatus.innerText = "Game Over!"
         winningMessage.innerText = "A Draw";
         gameOverSound.play()
-        // setInterval(restartGame,250)
     }
 }
 
@@ -100,7 +95,36 @@ const winningRule = function(a,b,c,player){
 const checkForWinner = function(){
     for(let eachCombo of winningCombo){
         let [a,b,c] = eachCombo.combo;
-        winningRule(a,b,c,player);
+        let strikethrough = eachCombo.strikeClass;
+        let spot1 = player[a];
+        let spot2 = player[b];
+        let spot3 = player[c];
+
+        if (spot1 && (spot1 === spot2 && spot1 === spot3)){
+            if (spot1 === 1){
+                winningMessage.innerText = "Player X Wins!";
+                // winningMessage.style.color = "black";
+                // winningMessage.style.opacity = "1";
+                winner = true;
+                winnerSound.loop = false;
+                strike.classList.add(strikethrough);
+                winnerSound.play();
+            }else{
+                winningMessage.innerText = "Player O Wins!";
+                // winningMessage.style.color = "black";
+                // winningMessage.style.opacity = "1";
+                strike.classList.add(strikethrough);
+                console.log("Player O wins!")
+                winner = true;
+                winnerSound.play();
+            }
+        } else if(Array.from(cells).every((element) => element.dataset.taken !== 'false')){
+            console.log("It's a draw!")
+            playerStatus.innerText = "Game Over!"
+            winningMessage.innerText = "A Draw";
+            gameOverSound.play()
+        }
+        // winningRule(a,b,c,strikethrough,player);
     }
 }
 
