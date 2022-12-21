@@ -10,8 +10,13 @@
 </head>
 <body>
     <div id="header">
-        <h2>TIC-TAC-TOE</h2>
-        <h3 id="player">Current Player is X</h3>
+        <h1 style="font-size: 40px">TIC-TAC-TOE</h1>
+        <div id="scoreboard">
+            <div id="round" class="round">Round: 0</div>
+            <div id="player" >Current Player is X</div>
+            <h1 class="title hidden" id="winning-message">Who wins?</h1>
+            <div id="lead" class="lead"></div>
+        </div>
     </div>
     <div class="container" id="board">
         <div class="cell" data-cell="0" data-taken="false"></div>
@@ -27,7 +32,7 @@
     </div>
 
     <div class="hidden" id="winner">
-        <h1 class="title --xl-large" id="winning-message">Who wins?</h1>
+<!--        <h1 class="title &#45;&#45;xl-large hidden" id="winning-message">Who wins?</h1>-->
         <button class="btn" id="restart">Play Again</button>
     </div>
 
