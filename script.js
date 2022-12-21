@@ -118,15 +118,16 @@ const checkForWinner = function(){
                 winner = true;
                 winnerSound.play();
             }
-        } else if(Array.from(cells).every((element) => element.dataset.taken !== 'false')){
-            console.log("It's a draw!")
-            playerStatus.innerText = "Game Over!"
-            winningMessage.innerText = "A Draw";
-            gameOverSound.play()
+        } else{
+            if (clickCounter === 9 && !winner){
+                playerStatus.innerText = "Game Over!"
+                winningMessage.innerText = "A Draw";
+                gameOverSound.play()
+            }
         }
-        // winningRule(a,b,c,strikethrough,player);
     }
 }
+
 
 
 // function to display the next player
