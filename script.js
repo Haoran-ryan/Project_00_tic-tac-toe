@@ -29,7 +29,7 @@ const winningMessage = document.querySelector('#winning-message');
 const restartButton = document.querySelector('#restart');
 const playerStatus = document.querySelector("#player");
 const roundText = document.querySelector('#round');
-const leadPlayerText = document.querySelector('#lead-player');
+const leadPlayerText = document.querySelector('#lead');
 
 let playerO_turn = false;
 let clickCounter = 0;
@@ -51,7 +51,7 @@ const gameEnd = function(){
         gameOver = true;
         round += 1;
         roundText.innerHTML = `Round: ${round}`;
-        setInterval(restartGame,1500)
+        setTimeout(restartGame,1500)
     }
 }
 
@@ -59,14 +59,15 @@ const gameEnd = function(){
 const leadPlayer = function() {
     if(winnerX !== winnerO){
         if(winnerX > winnerO){
-            // leadPlayerText.style.opacity ="1";
+            leadPlayerText.style.opacity ="1";
             leadPlayerText.innerText = `${playerX} is taking the lead`;
         }else{
-            // leadPlayerText.style.opacity ="1";
+            leadPlayerText.style.opacity ="1";
             leadPlayerText.innerText = `${playerO} is taking the lead`;
         }
     }
 }
+// leadPlayer();
 
 // function to restart the game
 const restartGame = function(){
@@ -80,8 +81,9 @@ const restartGame = function(){
     clickCounter = 0;
     gameOver = false;
     winner=false;
-    // leadPlayerText.style.opacity ='0';
-    round =0;
+    leadPlayerText.style.opacity="0";
+    // leadPlayerText.innerText="";
+    // round =0;
 
 }
 
@@ -99,7 +101,7 @@ const checkForWinner = function(){
                 winningMessage.innerText = "Player X Wins!";
                 winningMessage.style.opacity = "1";
                 winner = true;
-                winnerSound.loop = false;
+                // winnerSound.loop = false;
                 strike.classList.add(strikethrough);
                 winnerX += 1;
                 winnerSound.play();
@@ -113,7 +115,7 @@ const checkForWinner = function(){
                 winnerSound.play();
             }
         } else{
-            if (clickCounter === 9 && !!winner){
+            if (clickCounter === 9 && winner === false){
                 playerStatus.innerText = "Game Over!"
                 winningMessage.innerText = "A Draw";
                 winningMessage.style.opacity = "1";
@@ -147,6 +149,7 @@ const hoverText = function(){
 
 // function used for the main event listener
 function main(event){
+    leadPlayer();
     const clickedCell = event.target;
     // check if the cell is clicked
     if (clickedCell.dataset.taken !== "false"){
